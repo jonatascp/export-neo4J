@@ -1,25 +1,35 @@
 package export;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
-import org.neo4j.graphdb.Node;
-
-import export.service.ExportService;
+import export.service.BankExport;
+import export.service.CategoryBankExport;
+import export.service.CategoryExport;
+import export.service.TagExport;
+import export.service.TradeExport;
 
 public class Export {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 	
 		
 		_log.info("....Start Export....");
-		ExportService service = new ExportService();
 		
-		Iterable<Node> nodes = service.getAllNodes();
+		TagExport tagExport = new TagExport();
+		tagExport.export();
 		
-		for (Node node : nodes) {
-				_log.info(".............Node toString.........");
-				_log.info(node.toString());
-		}
+		CategoryExport categoryExport = new CategoryExport();
+		categoryExport.export();
+		
+		BankExport bankExport = new BankExport();
+		bankExport.export();
+		
+		TradeExport tradeExport = new TradeExport();
+		tradeExport.export();
+		
+		CategoryBankExport categoryBankExport = new CategoryBankExport();
+		categoryBankExport.export();
 		
 		_log.info("....Finish Export....");
 	}

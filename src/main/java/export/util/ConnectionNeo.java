@@ -1,5 +1,9 @@
 package export.util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,14 +12,11 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 public class ConnectionNeo {
 	
-	//TODO get path in the properties file
-	private static final String DB_PATH = "/home/jcp/dbACH/ACHneo4jpseBank";
-	
 	private static ConnectionNeo INSTANCE;
+	
 	private GraphDatabaseService graphDb;
 	
 	private ConnectionNeo() {
-		
 	}
 	
 	public static ConnectionNeo getInstance() {
@@ -33,7 +34,7 @@ public class ConnectionNeo {
 		try {
 
 			_log.info("....Init open file database....");
-			graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(DB_PATH);
+			graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(PropertiesUtil.getDbPath());
 			_log.info("....Opened file database....");
 
 			registerShutdownHook(graphDb);
